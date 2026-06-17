@@ -243,7 +243,7 @@ window.LIBRARY_CONFIG = [
     desc: "1-50卷",
     basePath: "MEW-ZH/",
     stylesheets: ["styles.css"],
-    citation: { prefix: "马恩全集》", title: "《马克思恩格斯全集》", publisher: "北京: 人民出版社" },
+    citation: { prefix: "", title: "《马克思恩格斯全集》", publisher: "北京: 人民出版社" },
     badge: "ZH",
     path: "MEW-ZH/index.html#TOC",
     groups: [
