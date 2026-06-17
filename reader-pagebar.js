@@ -420,7 +420,7 @@
       const info = typeof pageInfo === 'object' ? pageInfo : null;
       if (info?.scope) return info.label;
       const value = String(info ? (info.label ?? info.page ?? '') : pageInfo);
-      const pagenumtext = pattern.replace('${page}', value)
+      const pagenumtext = pattern?.replace('${page}', value)
         || (this.lang.startsWith('de') ? 'S. ' + value
         : this.lang.startsWith('ru') ? 'стр. ' + value
           : this.lang.startsWith('zh') ? '第' + value + '页'
