@@ -270,8 +270,8 @@ window.LIBRARY_CONFIG = [
           { id: 18, label: "第18卷: 1872年3月—1875年3月", volume: "第18卷", dir: "/MEW-ZH/18/" },
           { id: 19, label: "第19卷: 1875年3月—1883年5月", volume: "第19卷", dir: "/MEW-ZH/19/" },
           { id: 20, label: "第20卷: 反杜林论、自然辩证法", volume: "第20卷", dir: "/MEW-ZH/20/" },
-          { id: 21, label: "第21卷: 1883年5月—1889年12月", volume: "第21卷", dir: "/MEW-ZH/21/" },
-          { id: 22, label: "第22卷: 1890年1月—1895年8月", volume: "第22卷", dir: "/MEW-ZH/22/" }
+          { id: 21, label: "第21卷: 1883年5月—1889年12月", volume: "第21卷", dir: "/MEW-ZH/21/", citation: { year: 1965 } },
+          { id: 22, label: "第22卷: 1890年1月—1895年8月", volume: "第22卷", dir: "/MEW-ZH/22/", citation: { year: 1965 } }
         ]
       },
       {
@@ -328,6 +328,7 @@ window.LIBRARY_CONFIG = [
     stylesheets: ["styles.css"],
     badge: "ZH",
     path: "MEA/index.html#TOC",
+    citation: { prefix: "", title: "《马克思恩格斯文集》", publisher: "北京: 人民出版社", year: 2009 },
     groups: [
       {
         label: "著作（1-4卷）",

@@ -6,12 +6,14 @@ h3,h4,h5,h6 {font-family: "黑体"; text-align:center;margin:1em auto;line-heigh
 table {margin:1.5em auto;max-width:100%;}
 hr {margin:1em auto;text-align:center;max-width:80%;}
 .quote,blockquote,.footnote,p.footnote div,.src {font-size: 0.75em;line-height:150%;}
-.fni {text-indent:0;}
+.fni,.ct,.rt,.ni {text-indent:0;}
 
 blockquote p {line-height:150%;}
 .quote,blockquote,.footnote {margin: 1.5em 0;}
 .footnote,.sign {margin-top:2em;}
-table.quote,table.footnote,blockquote table,.add td,.src td {font-size: 0.75em;margin: 1.5em auto;line-height:150%;}
+table.quote,table.footnote,blockquote table,.add td,table.src {font-size: 0.75em;margin: 1.5em auto;line-height:150%;}
+table.src {width:100%;}
+.src tr td {vertical-align: top; width: 50%;padding:0 2em;}
 .style2 {font-weight:bold;font-size: 1.25rem;margin: 0 0 2em 0;}
 .date,.style3 {font-size: 0.75em;text-align:center;margin-top:0;margin-bottom:2em;}
 .TCC {width: 20%;font-size: 0.75em;text-align:justify;margin:1em auto;}
@@ -23,7 +25,7 @@ p.ct,div.ct,p.cq,div.cq,span.ct,span.cq {text-align:center;}
 p.rt,div.rt,.sign,p.add {text-align:right;}
 span.cq,span.rt,span.ct {display: block;}
 .rt table,table.rt,table.sign,div[align="right"] table {border-collapse: collapse; border: none; margin:1.5em 0 1.5em auto;font-size:1em;line-height:200%;}
-.src,.add  {max-width:60%;margin:1.5em 0 1.5em auto;}
+.add  {max-width:60%;margin:1.5em 0 1.5em auto;}
 div.quote[align="right"] {line-height:150%;}
 .rt td,.sign td {text-align:left;padding: 0;}
 em {text-emphasis: dot; text-emphasis-position: under;font-style: normal;}
