@@ -352,7 +352,7 @@ window.LIBRARY_CONFIG = [
       {
         label: "其他（9、10卷）",
         items: [
-          { id: 26, label: "马恩全集第二版第26卷 （反杜林论、自然辩证法）", volume: "全集第26卷", dir: "/MEA/26/" },
+          { id: 26, label: "马恩全集第二版第26卷 （反杜林论、自然辩证法）", volume: "全集第26卷", dir: "/MEA/26/", citation: { prefix: "", title: "《马克思恩格斯全集》", publisher: "北京: 人民出版社", year: 2014 } },
           { id: 10, label: "第10卷: 书信选编", volume: "第10卷", dir: "/MEA/10/" }
         ]
       }
