@@ -342,7 +342,7 @@ window.LIBRARY_CONFIG = [
       {
         label: "资本论及手稿（5-8卷）",
         items: [
-          { id: 5, label: "马恩全集第二版第44卷 （《资本论》第一卷）", volume: "第5卷", dir: "/MEA/5/" },
+          { id: 5, label: "第5卷: 《资本论》第一卷", volume: "第5卷", dir: "/MEA/5/" },
           { id: 6, label: "第6卷: 《资本论》第二卷", volume: "第6卷", dir: "/MEA/6/" },
           { id: 7, label: "第7卷: 《资本论》第三卷", volume: "第7卷", dir: "/MEA/7/" },
           { id: 8, label: "第8卷: 《资本论》手稿选编", volume: "第8卷", dir: "/MEA/8/" },
@@ -352,7 +352,7 @@ window.LIBRARY_CONFIG = [
       {
         label: "其他（9、10卷）",
         items: [
-          { id: 26, label: "马恩全集第二版第26卷 （反杜林论、自然辩证法）", volume: "全集第26卷", dir: "/MEA/26/", citation: { prefix: "", title: "《马克思恩格斯全集》", publisher: "北京: 人民出版社", year: 2014 } },
+          { id: 26, label: "马恩全集第二版第26卷 （反杜林论、自然辩证法）", volume: "第26卷", dir: "/MEA/26/", citation: { prefix: "", title: "《马克思恩格斯全集》", publisher: "北京: 人民出版社", year: 2014 } },
           { id: 10, label: "第10卷: 书信选编", volume: "第10卷", dir: "/MEA/10/" }
         ]
       }
