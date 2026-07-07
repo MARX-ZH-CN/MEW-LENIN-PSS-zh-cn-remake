@@ -2,7 +2,7 @@
   'use strict';
 
   const C = window.ReaderCore || {};
-  const { $, $$, onScrollFrame, hasSelection, scrollToEl } = C;
+  const { $, $$, onScrollFrame, scrollToEl } = C;
   const navMenu = () => window.__NAV__?.menu || window.__NAV__ || null;
 
   class PageBarManager {
@@ -16,8 +16,10 @@
       this.lastMarkerAt = 0;
       this.ready = false;
       this.scrollOff = null;
+      this.contentObserver = null;
       this.resizeFrame = 0;
       this.scrollFrame = 0;
+      this.measureSig = '';
       this.markerTimer = null;
       this.noticeTimer = null;
       this.quietUntil = 0;
@@ -36,7 +38,7 @@
         .filter(anchor => !this.isFootnoteAsideElement(anchor))
         .map(anchor => {
           const parsed = this.parsePageAnchor(anchor.id);
-          return parsed ? { id: anchor.id, el: anchor, ...parsed, top: 0 } : null;
+          return parsed ? { id: anchor.id, el: anchor, ...parsed, top: NaN } : null;
         })
         .filter(Boolean);
       this.hasPageAnchors = this.pageNumbers.length > 0;
@@ -60,11 +62,14 @@
       this.bag.clear();
       if (this.scrollOff) this.scrollOff();
       this.scrollOff = null;
+      if (this.contentObserver) this.contentObserver.disconnect();
+      this.contentObserver = null;
       if (this.resizeFrame) cancelAnimationFrame(this.resizeFrame);
       if (this.scrollFrame) cancelAnimationFrame(this.scrollFrame);
       clearTimeout(this.markerTimer);
       this.resizeFrame = 0;
       this.scrollFrame = 0;
+      this.measureSig = '';
       this.markerTimer = null;
       this.ready = false;
       this.pageNumbers = [];
@@ -89,17 +94,18 @@
       this.bag.on(document, 'selectionchange', () => this.handleSelectionChange());
       this.bag.on(window, 'resize', () => this.queueMeasure(), { passive: true });
       this.scrollOff = onScrollFrame(() => this.queueScrollUpdate());
-      setTimeout(() => {
-        this.measure();
-        this.ready = true;
-        this.queueScrollUpdate();
-      }, 350);
+      if (window.ResizeObserver) {
+        this.contentObserver = new ResizeObserver(() => this.queueMeasure());
+        this.contentObserver.observe(this.content);
+      }
+      this.ready = true;
+      this.queueMeasure();
     }
 
     parsePageAnchor(id) {
-      let match = String(id).match(/^S(\d+)$/);
+      let match = String(id).match(/^[Ss](\d+)$/);
       if (match) return { page: match[1], label: match[1], citePage: match[1] };
-      match = String(id).match(/^S(.+?)-p?(\d+)$/i);
+      match = String(id).match(/^[Ss](.+?)-p?(\d+)$/i);
       if (!match) return null;
       const scope = match[1].replace(/^[-_]+|[-_]+$/g, '');
       const page = match[2];
@@ -116,10 +122,26 @@
     }
 
     measure() {
+      if (!this.content || !this.content.getClientRects().length) return false;
       this.pageNumbers.forEach(item => {
         item.top = item.el.getBoundingClientRect().top + scrollY;
       });
       this.pageNumbers.sort((a, b) => a.top - b.top);
+      this.measureSig = this.layoutSignature();
+      return true;
+    }
+
+    layoutSignature() {
+      const rect = this.content?.getBoundingClientRect?.();
+      return rect
+        ? [Math.round(rect.width), Math.round(rect.height), document.documentElement.scrollHeight, this.pageNumbers.length].join(':')
+        : '';
+    }
+
+    needsMeasure() {
+      return !this.measureSig
+        || this.measureSig !== this.layoutSignature()
+        || this.pageNumbers.some(item => !Number.isFinite(item.top));
     }
 
     queueScrollUpdate() {
@@ -131,13 +153,13 @@
     }
 
     updateFromScroll() {
-      if (!this.ready || hasSelection()) return;
+      if (!this.ready) return;
       this.reveal({ rect: this.pointRect(Math.max(80, innerHeight * 0.42)), source: 'scroll' });
     }
 
     handleContentClick(e) {
       const target = e.target?.nodeType === 1 ? e.target : e.target?.parentElement;
-      if (!target || this.shouldIgnoreTarget(target) || hasSelection()) return;
+      if (!target || this.shouldIgnoreTarget(target)) return;
       this.reveal({ rect: this.pointRect(e.clientY), source: 'content-click', force: true, toggleAny: true, sticky: true });
     }
 
@@ -195,7 +217,7 @@
 
     findPageForRect(rect) {
       if (!this.pageNumbers.length || !rect) return null;
-      if (this.pageNumbers.some(item => !Number.isFinite(item.top))) this.measure();
+      if (this.needsMeasure() && !this.measure()) return null;
       const y = scrollY + (rect.top + rect.bottom) / 2;
       let lo = 0;
       let hi = this.pageNumbers.length - 1;
@@ -310,13 +332,20 @@
         link.style.display = 'none';
         delete link.dataset.page;
         delete link.dataset.pageAnchorId;
+        link.href = '#';
         return;
       }
       const info = typeof pageInfo === 'object' ? pageInfo : { label: pageInfo, citePage: pageInfo };
       link.textContent = this.formatCitationPage(info);
       link.style.display = '';
       link.dataset.page = info.citePage || info.label;
-      if (info.id) link.dataset.pageAnchorId = info.id;
+      if (info.id) {
+        link.dataset.pageAnchorId = info.id;
+        link.href = C.readerHref ? C.readerHref(this.currentDocPath(), info.id) : '#' + info.id;
+      } else {
+        delete link.dataset.pageAnchorId;
+        link.href = '#';
+      }
       this.bindCopy(link);
     }
 
