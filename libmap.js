@@ -138,6 +138,7 @@ window.LIBRARY_CONFIG = [
     basePath: "../en/MECW/",
     stylesheets: ["../en/MECW/MECW.css"],
     badge: "EN",
+    citation: { prefix: "Marx, Karl, and Frederick Engels.", title: "Marx & Engels Collected Works", publisher: "London: Lawrence & Wishart", year: '1975ff' },
     path: "../en/index.html#MECW",
     groups: [
       {
@@ -152,8 +153,8 @@ window.LIBRARY_CONFIG = [
           { id: 7, label: "Volume 7: 1848 (Articles for Neue Rheinische Zeitung)", volume: "Volume 7", dir: "/en/MECW/7/" },
           { id: 8, label: "Volume 8: 1848-1849", volume: "Volume 8", dir: "/en/MECW/8/" },
           { id: 9, label: "Volume 9: 1849", volume: "Volume 9", dir: "/en/MECW/9/" },
-          { id: 10, label: "Volume 10: 1849-1851 (The Class Struggles in France 1848-1850, The Peasant War in Germany)", volume: "Volume 10", dir: "/en/MECW/10/" },
-          { id: 11, label: "Volume 11: 1851-1853 (The Eighteenth Brumaire of Louis Napoleon, Revolution and Counter-Revolution in Germany)", volume: "Volume 11", dir: "/en/MECW/11/" },
+          { id: 10, label: "Volume 10: 1849-1851 (The Class Struggles in France 1848-1850, The Peasant War in Germany)", volume: "Volume 10", dir: "/en/MECW/10/", citation:{ year: 1978 } },
+          { id: 11, label: "Volume 11: 1851-1853 (The Eighteenth Brumaire of Louis Napoleon, Revolution and Counter-Revolution in Germany)", volume: "Volume 11", dir: "/en/MECW/11/", citation: { year: 1978 } },
           { id: 12, label: "Volume 12: 1853-1854 (Newspaper articles concerning global politics and other writings, including The Civil War in the United States)", volume: "Volume 12", dir: "/en/MECW/12/" },
           { id: 13, label: "Volume 13: 1854-1855", volume: "Volume 13", dir: "/en/MECW/13/" },
           { id: 14, label: "Volume 14: 1855-1856", volume: "Volume 14", dir: "/en/MECW/14/" },
